@@ -11,17 +11,17 @@
 #include <fstream>
 
 #define JS_RECONNECT
-
-#define DEFAULT_ADDRESS "127.0.0.1"
-#define DEFAULT_PORT 1883
-#define TOPIC "/moses/cmd_vel"
-#define QOS 0
-#define TIMEOUT 10000
-#define JOY_READ_INTERVAL 100
-#define JOY_RETRY_INTERVAL 1000
-#define V_MAX 1
-#define VN_MAX 1
-#define W_MAX 1
+ 
+#define DEFAULT_ADDRESS "127.0.0.1" //MQTT broker address
+#define DEFAULT_PORT 1883           //MQTT broker port
+#define TOPIC "/moses/cmd_vel"      //MQTT topic
+#define QOS 0                       //MQTT QoS
+#define TIMEOUT 10000               //MQTT timeout in milliseconds
+#define JOY_READ_INTERVAL 10        //Joystick read interval in milliseconds
+#define JOY_RETRY_INTERVAL 1000     //Joystick retry interval in milliseconds
+#define V_MAX 1                     //Maximum linear velocity value
+#define VN_MAX 1                    //Maximum normal linear velocity value
+#define W_MAX 1                     //Maximum angular velocity value
 
 struct mosquitto* mosq = NULL;
 
@@ -91,7 +91,7 @@ void sdl_close()
     SDL_Quit();
 }
 
-bool read_ip_config(std::string& address, int& port)
+/* bool read_ip_config(std::string& address, int& port)
 {
     std::ifstream config_file("ipconf");
     if (!config_file.is_open())
@@ -118,7 +118,7 @@ bool read_ip_config(std::string& address, int& port)
 
     config_file.close();
     return true;
-}
+} */
 
 bool mosquitto_init(const std::string& address, int port)
 {
@@ -208,10 +208,10 @@ int main(int argc, char* argv[])
     std::string address = DEFAULT_ADDRESS;
     int port = DEFAULT_PORT;
 
-    if (!read_ip_config(address, port))
+    /* if (!read_ip_config(address, port))
     {
         return EXIT_FAILURE;
-    }
+    } */
 
     std::cout << "Initializing mosquitto\n";
     if (!mosquitto_init(address, port))

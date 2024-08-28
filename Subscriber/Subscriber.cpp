@@ -9,24 +9,6 @@
 #define PORT 1883     // Replace with your MQTT broker port
 #define TOPIC "/moses/cmd_vel"         // Replace with the topic you want to subscribe to
 
-#define BUFFER_SIZE 10;
-long long buffer[10] = { 0 };
-long long avg_latency = 0;
-
-void moving_avg(long long new_value)
-{
-    long long lt_sum = 0;
-    for (int i = 10 - 1; i > 0; i--)
-    {
-        buffer[i] = buffer[i - 1];
-        lt_sum += buffer[i];
-    }
-    buffer[0] = new_value;
-
-    lt_sum += buffer[0];
-    avg_latency = lt_sum / 10;
-}
-
 void on_message_callback(struct mosquitto* mosq, void* userdata, const struct mosquitto_message* message)
 {
     /* printf("Received message on topic %s: %s\n", message->topic, (char *)message->payload);

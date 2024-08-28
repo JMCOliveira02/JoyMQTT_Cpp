@@ -1,5 +1,1 @@
-﻿  ReaderPublisher.cpp
-C:\Users\jmc_o\Desktop\x\ReaderPublisher\ReaderPublisher.cpp(177,57): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\jmc_o\Desktop\x\ReaderPublisher\ReaderPublisher.cpp(224,17): warning C4101: 'message': unreferenced local variable
-C:\Users\jmc_o\Desktop\x\ReaderPublisher\ReaderPublisher.cpp(193,9): warning C4101: 'rc': unreferenced local variable
-  ReaderPublisher.vcxproj -> C:\Users\jmc_o\Desktop\x\joyMQTT_Cpp\x64\Debug\ReaderPublisher.exe
+﻿

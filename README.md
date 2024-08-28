@@ -10,7 +10,8 @@ This repository contains a program written in C++ to read commands from a Joysti
 ### SDL2
 * [SDL2 releases](https://github.com/libsdl-org/SDL/releases/tag/release-2.30.6)
 
-* Download and extract the zip file referring to the Visual C++ compiler: **SDL2-devel-"sdl_version"-VC.zip** (it is recommended to extract the contents of the zip file to the path "C:" for no additional configuration with the Visual Studio solution, this will require you to change the name of the extracted folder to "SDL2")
+* Download and extract the zip file referring to the Visual C++ compiler: **SDL2-devel-"sdl_version"-VC.zip** 
+  * It is recommended to extract the contents of the zip file to the path "C:" for no additional configuration with the Visual Studio solution, this will require you to change the name of the extracted folder to "SDL2"
 
 
 * Add the **"C:/SDL2/lib/x64"** directory to the **Path**
@@ -18,13 +19,15 @@ environment variable
 ### Mosquitto
 * [Mosquitto download page](https://mosquitto.org/download/)
 
-* Download and run the windows x64 mosquitto installer: **mosquitto-mosquitto_version-install-windows-x64.exe** (it is recommended to install directly on the path "C:" for no additional configuration with the Visual Studio solution)
+* Download and run the windows x64 mosquitto installer: **mosquitto-mosquitto_version-install-windows-x64.exe** 
+  * It is recommended to install directly on the path "C:" for no additional configuration with the Visual Studio solution
 
 * Add the directory where mosquitto was installed (**"C:/mosquitto"**) to the **Path** environment variable
 
 ### JSON
 * [Single include JSON library](https://github.com/nlohmann/json/blob/develop/single_include/nlohmann/json.hpp)
-* Download raw file ( it is recommended to download the file to the directory **"C:\JSON"**, for no additional configuration with the Visual Studio solution )
+* Download raw file 
+  * It is recommended to download the file to the directory **"C:\JSON"**, for no additional configuration with the Visual Studio solution
 
 ### Additional notes
 * There should now be three folders present in the **C:** directory: **"SDL2"**, **"mosquitto"** and **"JSON"**
@@ -41,4 +44,27 @@ git clone https://github.com/JMCOliveira02/joyMQTT_Cpp_2.git
 
 ## Usage
 
-
+### ReaderPublisher
+* This program reads the input from a detected USB Joystick, converts the input into velocity commands and sends these to a **MQTT** broker at a given **IP address** and **Port**
+* In these lines of code, taken from the file **ReaderPublisher.cpp**, it is possible to configure the parameters of the connection
+```c++
+#define DEFAULT_ADDRESS "127.0.0.1" //MQTT broker address
+#define DEFAULT_PORT 1883           //MQTT broker port
+#define TOPIC "/moses/cmd_vel"      //MQTT topic
+#define QOS 0                       //MQTT QoS
+#define TIMEOUT 10000               //MQTT timeout in milliseconds
+#define JOY_READ_INTERVAL 10        //Joystick read interval in milliseconds
+#define JOY_RETRY_INTERVAL 1000     //Joystick retry interval in milliseconds
+#define V_MAX 1                     //Maximum linear velocity value
+#define VN_MAX 1                    //Maximum normal linear velocity value
+#define W_MAX 1                     //Maximum angular velocity value
+```
+* The program also opens a terminal window to show the state of the connection and the inputs read from the Joystick 
+### Subscriber
+* This program connects to a MQTT broker, and subscribes to a given topic, dumping to a terminal everything it reads from that topic. This can be useful to debug errors in the connection between the ReaderPublisher and the broker.
+* In these lines of code, taken from the file **Subscriber.cpp**, it is possible to configure the parameters of the connection
+```c++
+#define ADDRESS "127.0.0.1"    //MQTT broker address
+#define PORT 1883              //MQTT broker port
+#define TOPIC "/moses/cmd_vel" //MQTT topic
+```
